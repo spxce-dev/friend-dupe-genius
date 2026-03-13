@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { products } from "@/data/products";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
