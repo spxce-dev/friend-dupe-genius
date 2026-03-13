@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
+import Footer from "@/components/Footer";
 import { products, categories } from "@/data/products";
 import { motion } from "framer-motion";
 
@@ -48,6 +49,7 @@ const Products = () => {
           ))}
         </motion.div>
       </div>
+      <Footer />
     </div>
   );
 };
