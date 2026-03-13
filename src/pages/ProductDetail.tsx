@@ -110,6 +110,7 @@ const ProductDetail = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

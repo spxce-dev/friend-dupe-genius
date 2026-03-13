@@ -49,6 +49,7 @@ const Products = () => {
           ))}
         </motion.div>
       </div>
+      <Footer />
     </div>
   );
 };
