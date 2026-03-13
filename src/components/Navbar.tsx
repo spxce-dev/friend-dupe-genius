@@ -1,0 +1,80 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu, Search, ShoppingBag, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [cartCount] = useState(0);
+
+  return (
+    <>
+      <nav className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-background border-b border-border">
+        <button onClick={() => setMenuOpen(true)} className="p-1">
+          <Menu className="w-5 h-5 text-foreground" />
+        </button>
+
+        <Link to="/" className="font-display text-lg tracking-wider text-foreground">
+          <span className="text-primary">F</span>rienemies
+        </Link>
+
+        <div className="flex items-center gap-3">
+          <Link to="/products">
+            <Search className="w-5 h-5 text-foreground" />
+          </Link>
+          <div className="relative">
+            <ShoppingBag className="w-5 h-5 text-foreground" />
+            <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[10px] flex items-center justify-center font-body font-bold">
+              {cartCount}
+            </span>
+          </div>
+        </div>
+      </nav>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-foreground/50"
+              onClick={() => setMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 left-0 z-50 h-full w-72 bg-background p-6 shadow-xl"
+            >
+              <button onClick={() => setMenuOpen(false)} className="mb-8">
+                <X className="w-5 h-5 text-foreground" />
+              </button>
+              <div className="flex flex-col gap-5">
+                {[
+                  { label: "Home", to: "/" },
+                  { label: "Shop All", to: "/products" },
+                  { label: "Jackets", to: "/products?category=Jackets" },
+                  { label: "Hoodies", to: "/products?category=Hoodies" },
+                  { label: "Accessories", to: "/products?category=Watches" },
+                ].map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    onClick={() => setMenuOpen(false)}
+                    className="font-display text-xl text-foreground hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default Navbar;
