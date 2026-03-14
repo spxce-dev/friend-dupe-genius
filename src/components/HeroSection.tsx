@@ -7,7 +7,7 @@ const HeroSection = () => {
     <section className="relative h-[85vh] min-h-[500px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src={heroImage}
+          src={heroBanner}
           alt="Luxury jewelry and accessories"
           className="w-full h-full object-cover"
         />

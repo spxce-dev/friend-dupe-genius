@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logoImg from "@/assets/toplogo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
