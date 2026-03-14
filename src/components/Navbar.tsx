@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="sticky top-0 z-50 flex items-center justify-center px-4 py-3 bg-background border-b border-border relative">
-        <button onClick={() => setMenuOpen(true)} className="absolute left-4 p-1">
+        <button onClick={() => setMenuOpen(true)} className="absolute left-4 top-1/2 -translate-y-1/2 p-1">
           <Menu className="w-5 h-5 text-primary" />
         </button>
 
@@ -19,7 +19,7 @@ const Navbar = () => {
           <img src={logoImg} alt="Frienemies" className="h-20 object-contain" />
         </Link>
 
-        <div className="absolute right-4 flex items-center gap-3">
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-3">
           <Link to="/products">
             <Search className="w-5 h-5 text-primary" />
           </Link>
