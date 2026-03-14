@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "build:prod": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -68,6 +68,7 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.2.2",
     "vite": "^5.1.6"
   }
