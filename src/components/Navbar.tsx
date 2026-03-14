@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logoImg from "@/assets/toplogo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,8 +15,8 @@ const Navbar = () => {
           <Menu className="w-5 h-5 text-foreground" />
         </button>
 
-        <Link to="/" className="font-display text-lg tracking-wider text-foreground">
-          <span className="text-primary">F</span>rienemies
+        <Link to="/">
+          <img src={logoImg} alt="Frienemies" className="h-8 object-contain" />
         </Link>
 
         <div className="flex items-center gap-3">

@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-
-const heroImage = "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=1400&q=80";
+import heroBanner from "@/assets/hero-banner.jpg";
 
 const HeroSection = () => {
   return (
     <section className="relative h-[85vh] min-h-[500px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src={heroImage}
+          src={heroBanner}
           alt="Luxury jewelry and accessories"
           className="w-full h-full object-cover"
         />
