@@ -1,0 +1,47 @@
+name: Build Site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci  # Using ci instead of install for cleaner builds
+
+      - name: Build project
+        run: npm run build
+        env:
+          NODE_ENV: production  # Ensure production mode
+
+      - name: Verify build output
+        run: |
+          echo "=== DIST FOLDER CONTENTS ==="
+          ls -la dist/
+          echo -e "\n=== ASSETS FOLDER ==="
+          ls -la dist/assets/ || echo "No assets folder"
+          echo -e "\n=== INDEX.HTML CHECK ==="
+          head -20 dist/index.html
+          echo -e "\n=== ASSET REFERENCE CHECK ==="
+          grep -o 'href="[^"]*"' dist/index.html || echo "No hrefs found"
+          grep -o 'src="[^"]*"' dist/index.html || echo "No srcs found"
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-build
+          path: dist/
+          retention-days: 30  # Keep artifact for 30 days
