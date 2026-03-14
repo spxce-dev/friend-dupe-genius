@@ -19,7 +19,7 @@ const Navbar = () => {
           <img src={logoImg} alt="Frienemies" className="h-20 object-contain" />
         </Link>
 
-        <div className="absolute right-4 flex items-center gap-3">
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-3">
           <Link to="/products">
             <Search className="w-5 h-5 text-primary" />
           </Link>
