@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, Instagram, Facebook, Twitter } from "lucide-react";
+import footerLogo from "@/assets/footer-logo.png";
 
 const FooterAccordion = ({ title, children }: { title: string; children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
