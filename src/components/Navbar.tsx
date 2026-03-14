@@ -16,7 +16,7 @@ const Navbar = () => {
         </button>
 
         <Link to="/">
-          <img src={logoImg} alt="Frienemies" className="h-12 object-contain" />
+          <img src={logoImg} alt="Frienemies" className="h-20 object-contain" />
         </Link>
 
         <div className="flex items-center gap-3">
