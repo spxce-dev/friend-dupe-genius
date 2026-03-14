@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-background border-b border-border">
+      <nav className="sticky top-0 z-50 flex items-center justify-center px-4 py-3 bg-background border-b border-border relative">
         <button onClick={() => setMenuOpen(true)} className="p-1">
           <Menu className="w-5 h-5 text-primary" />
         </button>
