@@ -10,8 +10,8 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-background border-b border-border">
-        <button onClick={() => setMenuOpen(true)} className="p-1">
+      <nav className="sticky top-0 z-50 flex items-center justify-center px-4 py-3 bg-background border-b border-border relative">
+        <button onClick={() => setMenuOpen(true)} className="absolute left-4 p-1">
           <Menu className="w-5 h-5 text-primary" />
         </button>
 
@@ -19,7 +19,7 @@ const Navbar = () => {
           <img src={logoImg} alt="Frienemies" className="h-20 object-contain" />
         </Link>
 
-        <div className="flex items-center gap-3">
+        <div className="absolute right-4 flex items-center gap-3">
           <Link to="/products">
             <Search className="w-5 h-5 text-primary" />
           </Link>
@@ -49,9 +49,12 @@ const Navbar = () => {
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed top-0 left-0 z-50 h-full w-72 bg-background p-6 shadow-xl"
             >
-              <button onClick={() => setMenuOpen(false)} className="mb-8">
+              <button onClick={() => setMenuOpen(false)} className="mb-4">
                 <X className="w-5 h-5 text-primary" />
               </button>
+              <div className="flex justify-center mb-6">
+                <img src={logoImg} alt="Frienemies" className="h-16 object-contain" />
+              </div>
               <div className="flex flex-col gap-5">
                 {[
                   { label: "Home", to: "/" },
