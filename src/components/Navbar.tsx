@@ -64,7 +64,7 @@ const Navbar = () => {
                     key={item.label}
                     to={item.to}
                     onClick={() => setMenuOpen(false)}
-                    className="font-display text-xl text-foreground hover:text-primary transition-colors"
+                    className="font-display text-xl text-primary hover:text-primary/70 transition-colors"
                   >
                     {item.label}
                   </Link>
