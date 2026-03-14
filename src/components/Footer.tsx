@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, Instagram, Facebook, Twitter } from "lucide-react";
+import footerLogo from "@/assets/footer-logo.png";
 
 const FooterAccordion = ({ title, children }: { title: string; children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
@@ -66,9 +67,10 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 text-center">
-          <p className="font-display text-sm tracking-widest text-primary-foreground/70">
-            <span className="text-primary-foreground">F</span>·r·i·e·n·e·m·i·e·s
+        <div className="pt-8 flex flex-col items-center gap-4">
+          <img src={footerLogo} alt="Farbeyond logo" className="h-16 object-contain" />
+          <p className="font-body text-xs text-primary-foreground/70">
+            © 2026 FARBEYOND. All rights reserved
           </p>
         </div>
       </div>
