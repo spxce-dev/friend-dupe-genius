@@ -21,10 +21,10 @@ const Navbar = () => {
 
         <div className="flex items-center gap-3">
           <Link to="/products">
-            <Search className="w-5 h-5 text-foreground" />
+            <Search className="w-5 h-5 text-primary" />
           </Link>
           <div className="relative">
-            <ShoppingBag className="w-5 h-5 text-foreground" />
+            <ShoppingBag className="w-5 h-5 text-primary" />
             <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[10px] flex items-center justify-center font-body font-bold">
               {cartCount}
             </span>
