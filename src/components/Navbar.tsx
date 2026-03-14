@@ -12,19 +12,19 @@ const Navbar = () => {
     <>
       <nav className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-background border-b border-border">
         <button onClick={() => setMenuOpen(true)} className="p-1">
-          <Menu className="w-5 h-5 text-foreground" />
+          <Menu className="w-5 h-5 text-primary" />
         </button>
 
         <Link to="/">
-          <img src={logoImg} alt="Frienemies" className="h-8 object-contain" />
+          <img src={logoImg} alt="Frienemies" className="h-12 object-contain" />
         </Link>
 
         <div className="flex items-center gap-3">
           <Link to="/products">
-            <Search className="w-5 h-5 text-foreground" />
+            <Search className="w-5 h-5 text-primary" />
           </Link>
           <div className="relative">
-            <ShoppingBag className="w-5 h-5 text-foreground" />
+            <ShoppingBag className="w-5 h-5 text-primary" />
             <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[10px] flex items-center justify-center font-body font-bold">
               {cartCount}
             </span>
@@ -50,7 +50,7 @@ const Navbar = () => {
               className="fixed top-0 left-0 z-50 h-full w-72 bg-background p-6 shadow-xl"
             >
               <button onClick={() => setMenuOpen(false)} className="mb-8">
-                <X className="w-5 h-5 text-foreground" />
+                <X className="w-5 h-5 text-primary" />
               </button>
               <div className="flex flex-col gap-5">
                 {[
@@ -64,7 +64,7 @@ const Navbar = () => {
                     key={item.label}
                     to={item.to}
                     onClick={() => setMenuOpen(false)}
-                    className="font-display text-xl text-foreground hover:text-primary transition-colors"
+                    className="font-display text-xl text-primary hover:text-primary/70 transition-colors"
                   >
                     {item.label}
                   </Link>
