@@ -50,7 +50,7 @@ const Navbar = () => {
               className="fixed top-0 left-0 z-50 h-full w-72 bg-background p-6 shadow-xl"
             >
               <button onClick={() => setMenuOpen(false)} className="mb-8">
-                <X className="w-5 h-5 text-foreground" />
+                <X className="w-5 h-5 text-primary" />
               </button>
               <div className="flex flex-col gap-5">
                 {[
