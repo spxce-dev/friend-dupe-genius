@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { categories } from "@/data/products";
+import catNecklaces from "@/assets/cat-necklaces.jpeg";
+import catShades from "@/assets/cat-shades.jpeg";
+import catWatches from "@/assets/cat-watches.jpeg";
+import catBracelets from "@/assets/cat-bracelets.jpeg";
+import catTshirts from "@/assets/cat-tshirts.jpeg";
+
+const categoryImageOverrides: Record<string, string> = {
+  Necklaces: catNecklaces,
+  Shades: catShades,
+  Watches: catWatches,
+  Bracelets: catBracelets,
+  "T-Shirts": catTshirts,
+};
 
 const CategorySection = () => {
   return (
@@ -23,7 +36,7 @@ const CategorySection = () => {
             >
               <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-transparent hover:border-primary transition-colors">
                 <img
-                  src={cat.image}
+                  src={categoryImageOverrides[cat.name] || cat.image}
                   alt={cat.name}
                   className="w-full h-full object-cover"
                   loading="lazy"
