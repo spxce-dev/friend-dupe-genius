@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { categories } from "@/data/products";
+import catNecklaces from "@/assets/cat-necklaces.jpeg";
+import catShades from "@/assets/cat-shades.jpeg";
+import catWatches from "@/assets/cat-watches.jpeg";
+import catBracelets from "@/assets/cat-bracelets.jpeg";
+import catTshirts from "@/assets/cat-tshirts.jpeg";
+
+const categoryImageOverrides: Record<string, string> = {
+  Necklaces: catNecklaces,
+  Shades: catShades,
+  Watches: catWatches,
+  Bracelets: catBracelets,
+  "T-Shirts": catTshirts,
+};
 
 const CategorySection = () => {
   return (
