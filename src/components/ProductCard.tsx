@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import type { Product } from "@/data/products";
+import type { Product } from "@/hooks/use-products";
 
 interface ProductCardProps {
   product: Product;
@@ -16,12 +16,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
       >
         <div className="relative aspect-square overflow-hidden rounded-lg bg-secondary mb-3">
           <img
-            src={product.image}
+            src={product.image || ""}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />
-          {product.bestSeller && (
+          {product.best_seller && (
             <span className="absolute top-2 left-2 bg-badge text-badge-foreground text-[10px] font-body font-semibold px-2 py-1 rounded">
               Best Sellers
             </span>

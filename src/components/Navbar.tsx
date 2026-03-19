@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCart } from "@/hooks/use-cart";
 import logoImg from "@/assets/toplogo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartCount] = useState(0);
+  const { count } = useCart();
 
   return (
     <>
@@ -23,12 +24,12 @@ const Navbar = () => {
           <Link to="/products">
             <Search className="w-5 h-5 text-primary" />
           </Link>
-          <div className="relative">
+          <Link to="/cart" className="relative">
             <ShoppingBag className="w-5 h-5 text-primary" />
             <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-primary text-primary-foreground text-[10px] flex items-center justify-center font-body font-bold">
-              {cartCount}
+              {count}
             </span>
-          </div>
+          </Link>
         </div>
       </nav>
 
@@ -62,6 +63,7 @@ const Navbar = () => {
                   { label: "Jackets", to: "/products?category=Jackets" },
                   { label: "Hoodies", to: "/products?category=Hoodies" },
                   { label: "Accessories", to: "/products?category=Watches" },
+                  { label: "Cart", to: "/cart" },
                 ].map((item) => (
                   <Link
                     key={item.label}

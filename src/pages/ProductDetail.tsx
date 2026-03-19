@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
-import { products } from "@/data/products";
+import { useProduct, useProducts } from "@/hooks/use-products";
+import { useCart } from "@/hooks/use-cart";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
@@ -8,8 +9,23 @@ import { useState } from "react";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === id);
+  const { data: product, isLoading } = useProduct(id || "");
+  const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState("M");
+
+  const { data: allProducts } = useProducts(product?.category);
+  const related = allProducts?.filter((p) => p.id !== product?.id).slice(0, 4) || [];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="flex items-center justify-center h-[60vh]">
+          <p className="font-body text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -23,7 +39,6 @@ const ProductDetail = () => {
   }
 
   const sizes = ["XS", "S", "M", "L", "XL"];
-  const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
 
   return (
     <div className="min-h-screen bg-background">
@@ -40,7 +55,7 @@ const ProductDetail = () => {
             animate={{ opacity: 1, x: 0 }}
             className="aspect-square rounded-lg overflow-hidden bg-secondary"
           >
-            <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+            <img src={product.image || ""} alt={product.name} className="w-full h-full object-cover" />
           </motion.div>
 
           <motion.div
@@ -48,7 +63,7 @@ const ProductDetail = () => {
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-col justify-center"
           >
-            {product.bestSeller && (
+            {product.best_seller && (
               <span className="inline-block w-fit bg-badge text-badge-foreground text-[10px] font-body font-semibold px-2 py-1 rounded mb-3">
                 Best Seller
               </span>
@@ -85,6 +100,7 @@ const ProductDetail = () => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => addToCart(product, selectedSize)}
               className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground py-3 rounded-lg font-body font-semibold text-sm tracking-wide"
             >
               <ShoppingBag className="w-4 h-4" />
@@ -100,7 +116,7 @@ const ProductDetail = () => {
               {related.map((p) => (
                 <Link key={p.id} to={`/product/${p.id}`} className="group">
                   <div className="aspect-square rounded-lg overflow-hidden bg-secondary mb-2">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    <img src={p.image || ""} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   </div>
                   <p className="font-display text-sm text-primary text-center">{p.name}</p>
                   <p className="font-body text-sm text-primary text-center">${p.price}</p>

@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
 import Footer from "@/components/Footer";
-import { products, categories } from "@/data/products";
+import { useProducts, useCategories } from "@/hooks/use-products";
 import { motion } from "framer-motion";
 
 const Products = () => {
@@ -11,10 +11,8 @@ const Products = () => {
   const initialCategory = searchParams.get("category") || "All";
   const [activeCategory, setActiveCategory] = useState(initialCategory);
 
-  const filtered = useMemo(() => {
-    if (activeCategory === "All") return products;
-    return products.filter((p) => p.category === activeCategory);
-  }, [activeCategory]);
+  const { data: categories } = useCategories();
+  const { data: products, isLoading } = useProducts(activeCategory);
 
   return (
     <div className="min-h-screen bg-background">
@@ -25,7 +23,7 @@ const Products = () => {
         </h1>
 
         <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
-          {categories.map((cat) => (
+          {categories?.map((cat) => (
             <button
               key={cat.name}
               onClick={() => setActiveCategory(cat.name)}
@@ -40,14 +38,26 @@ const Products = () => {
           ))}
         </div>
 
-        <motion.div
-          layout
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
-        >
-          {filtered.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </motion.div>
+        {isLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="aspect-square rounded-lg bg-muted mb-3" />
+                <div className="h-4 bg-muted rounded w-3/4 mx-auto mb-2" />
+                <div className="h-3 bg-muted rounded w-1/2 mx-auto" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <motion.div
+            layout
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+          >
+            {products?.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </motion.div>
+        )}
       </div>
       <Footer />
     </div>
