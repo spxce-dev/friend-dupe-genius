@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, useRef, ReactNode } from "react";
 import type { Product } from "@/hooks/use-products";
 import { siteConfig } from "@/lib/config";
 import { toast } from "sonner";
@@ -39,13 +39,41 @@ const setLocalCart = (items: CartItem[]) => {
   localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(items));
 };
 
+const syncToWoo = async (cartItems: CartItem[]) => {
+  try {
+    const payload = cartItems.map((i) => ({
+      product_id: i.product_id,
+      quantity: i.quantity,
+      variation: i.size && i.size !== "One Size" ? { attribute_pa_size: i.size } : undefined,
+    }));
+    await fetch(siteConfig.cartSyncUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ items: payload }),
+    });
+  } catch (err) {
+    console.error("WooCommerce cart sync failed:", err);
+  }
+};
+
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>(getLocalCart);
   const [loading] = useState(false);
+  const syncTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const persist = useCallback((updated: CartItem[]) => {
     setLocalCart(updated);
     setItems(updated);
+    // Debounce WooCommerce sync to avoid excessive requests
+    if (syncTimer.current) clearTimeout(syncTimer.current);
+    syncTimer.current = setTimeout(() => syncToWoo(updated), 500);
+  }, []);
+
+  // Sync on initial load if cart has items
+  useEffect(() => {
+    const initial = getLocalCart();
+    if (initial.length > 0) syncToWoo(initial);
   }, []);
 
   const addToCart = async (product: Product, size: string, quantity = 1) => {
@@ -77,10 +105,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const checkout = () => {
-    // Build WooCommerce cart URL with items
-    const cartItems = items.map((i) => `${i.product_id}:${i.quantity}`).join(",");
-    const url = `${siteConfig.checkoutUrl}?cart=${encodeURIComponent(cartItems)}`;
-    window.open(url, "_blank");
+    // Ensure final sync before redirect
+    syncToWoo(items).then(() => {
+      window.open(siteConfig.checkoutUrl, "_blank");
+    });
   };
 
   const count = items.reduce((sum, i) => sum + i.quantity, 0);
