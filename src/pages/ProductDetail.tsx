@@ -123,7 +123,7 @@ const ProductDetail = () => {
                     <img src={p.image || ""} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   </div>
                   <p className="font-display text-sm text-primary text-center">{p.name}</p>
-                  <p className="font-body text-sm text-primary text-center">${p.price}</p>
+                  <p className="font-body text-sm text-primary text-center">R{p.price}</p>
                 </Link>
               ))}
             </div>
