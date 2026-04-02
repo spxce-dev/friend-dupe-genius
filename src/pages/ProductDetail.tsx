@@ -5,7 +5,6 @@ import { useCart } from "@/hooks/use-cart";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
-import { motion } from "framer-motion";
 import { useState } from "react";
 
 const ProductDetail = () => {
