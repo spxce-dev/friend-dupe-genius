@@ -75,9 +75,10 @@ const ProductDetail = () => {
               {product.description}
             </p>
             <p className="font-display text-3xl text-primary mb-6">
-              ${product.price}
+              R{product.price}
             </p>
 
+            {sizes.length > 0 && (
             <div className="mb-6">
               <p className="font-body text-sm text-foreground mb-2">Size</p>
               <div className="flex gap-2">
