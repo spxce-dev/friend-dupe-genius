@@ -110,7 +110,7 @@ const ProductDetail = () => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => addToCart(product, selectedSize)}
+              onClick={() => addToCart(product, selectedSize || "One Size")}
               className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground py-3 rounded-lg font-body font-semibold text-sm tracking-wide"
             >
               <ShoppingBag className="w-4 h-4" />
