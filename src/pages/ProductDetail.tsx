@@ -99,6 +99,7 @@ const ProductDetail = () => {
                 ))}
               </div>
             </div>
+            )}
 
             <motion.button
               whileHover={{ scale: 1.02 }}
