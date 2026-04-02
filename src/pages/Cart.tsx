@@ -6,7 +6,7 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Cart = () => {
-  const { items, count, total, loading, removeFromCart, updateQuantity } = useCart();
+  const { items, count, total, loading, removeFromCart, updateQuantity, checkout } = useCart();
 
   return (
     <div className="min-h-screen bg-background">
