@@ -43,15 +43,21 @@ const syncToWoo = async (cartItems: CartItem[]) => {
   try {
     const payload = cartItems.map((i) => ({
       product_id: i.product_id,
+      variation_id: i.product?.variation_id || 0,
       quantity: i.quantity,
-      variation: i.size && i.size !== "One Size" ? { attribute_pa_size: i.size } : undefined,
+      attributes: i.size && i.size !== "One Size" ? { pa_size: i.size } : {},
     }));
-    await fetch(siteConfig.cartSyncUrl, {
+    const res = await fetch(siteConfig.cartSyncUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify({ items: payload }),
     });
+    const data = await res.json();
+    if (!data.ok) {
+      console.error("Cart sync error:", data.errors || data.message);
+    }
+    return data;
   } catch (err) {
     console.error("WooCommerce cart sync failed:", err);
   }
