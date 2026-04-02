@@ -1,11 +1,11 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useProduct, useProducts } from "@/hooks/use-products";
 import { useCart } from "@/hooks/use-cart";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
-import { useState } from "react";
+import { motion } from "framer-motion";
 
 const ProductDetail = () => {
   const { id } = useParams();
