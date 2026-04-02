@@ -15,6 +15,7 @@ export interface Product {
   category: string;
   attributes: { name: string; options: string[] }[];
   permalink: string;
+  variation_id?: number;
 }
 
 interface WooProduct {
