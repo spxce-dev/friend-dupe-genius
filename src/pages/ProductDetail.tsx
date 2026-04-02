@@ -12,6 +12,7 @@ const ProductDetail = () => {
   const { data: product, isLoading } = useProduct(id || "");
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
   const sizeAttr = product?.attributes?.find((a) => a.name.toLowerCase() === "size");
   const sizes = sizeAttr?.options || [];
