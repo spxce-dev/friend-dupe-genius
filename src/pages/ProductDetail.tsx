@@ -47,9 +47,6 @@ const ProductDetail = () => {
     );
   }
 
-  const sizeAttr = product?.attributes?.find((a) => a.name.toLowerCase() === "size");
-  const sizes = sizeAttr?.options || [];
-  const defaultSize = sizes.includes("M") ? "M" : sizes[0] || "";
 
   return (
     <div className="min-h-screen bg-background">
