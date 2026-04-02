@@ -34,7 +34,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           {product.description}
         </p>
         <p className="font-body text-sm text-primary text-center font-semibold">
-          ${product.price}
+          R{product.price}
         </p>
       </motion.div>
     </Link>

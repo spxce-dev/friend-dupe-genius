@@ -1,17 +1,26 @@
 import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useProduct, useProducts } from "@/hooks/use-products";
 import { useCart } from "@/hooks/use-cart";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { data: product, isLoading } = useProduct(id || "");
   const { addToCart } = useCart();
-  const [selectedSize, setSelectedSize] = useState("M");
+  const [selectedSize, setSelectedSize] = useState("");
+
+  const sizeAttr = product?.attributes?.find((a) => a.name.toLowerCase() === "size");
+  const sizes = sizeAttr?.options || [];
+
+  useEffect(() => {
+    if (sizes.length > 0 && !selectedSize) {
+      setSelectedSize(sizes.includes("M") ? "M" : sizes[0]);
+    }
+  }, [product?.id]);
 
   const { data: allProducts } = useProducts(product?.category);
   const related = allProducts?.filter((p) => p.id !== product?.id).slice(0, 4) || [];
@@ -38,7 +47,6 @@ const ProductDetail = () => {
     );
   }
 
-  const sizes = ["XS", "S", "M", "L", "XL"];
 
   return (
     <div className="min-h-screen bg-background">
@@ -75,9 +83,10 @@ const ProductDetail = () => {
               {product.description}
             </p>
             <p className="font-display text-3xl text-primary mb-6">
-              ${product.price}
+              R{product.price}
             </p>
 
+            {sizes.length > 0 && (
             <div className="mb-6">
               <p className="font-body text-sm text-foreground mb-2">Size</p>
               <div className="flex gap-2">
@@ -96,11 +105,12 @@ const ProductDetail = () => {
                 ))}
               </div>
             </div>
+            )}
 
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => addToCart(product, selectedSize)}
+              onClick={() => addToCart(product, selectedSize || "One Size")}
               className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground py-3 rounded-lg font-body font-semibold text-sm tracking-wide"
             >
               <ShoppingBag className="w-4 h-4" />
@@ -119,7 +129,7 @@ const ProductDetail = () => {
                     <img src={p.image || ""} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   </div>
                   <p className="font-display text-sm text-primary text-center">{p.name}</p>
-                  <p className="font-body text-sm text-primary text-center">${p.price}</p>
+                  <p className="font-body text-sm text-primary text-center">R{p.price}</p>
                 </Link>
               ))}
             </div>

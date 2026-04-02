@@ -6,7 +6,7 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Cart = () => {
-  const { items, count, total, loading, removeFromCart, updateQuantity } = useCart();
+  const { items, count, total, loading, removeFromCart, updateQuantity, checkout } = useCart();
 
   return (
     <div className="min-h-screen bg-background">
@@ -56,7 +56,7 @@ const Cart = () => {
                     </Link>
                     <p className="font-body text-xs text-muted-foreground">Size: {item.size}</p>
                     <p className="font-body text-sm text-primary font-semibold mt-1">
-                      ${item.product?.price}
+                      R{item.product?.price}
                     </p>
                   </div>
                   <div className="flex flex-col items-end justify-between">
@@ -86,17 +86,20 @@ const Cart = () => {
             <div className="bg-card rounded-lg border border-border p-6">
               <div className="flex justify-between font-body text-sm mb-2">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span className="text-foreground">${total.toFixed(2)}</span>
+                <span className="text-foreground">R{total.toFixed(2)}</span>
               </div>
               <div className="flex justify-between font-body text-sm mb-4">
                 <span className="text-muted-foreground">Shipping</span>
-                <span className="text-foreground">Free</span>
+                <span className="text-foreground">Calculated at checkout</span>
               </div>
               <div className="border-t border-border pt-4 flex justify-between font-display text-lg">
                 <span className="text-primary">Total</span>
-                <span className="text-primary">${total.toFixed(2)}</span>
+                <span className="text-primary">R{total.toFixed(2)}</span>
               </div>
-              <button className="w-full mt-6 bg-primary text-primary-foreground py-3 rounded-lg font-body font-semibold text-sm">
+              <button
+                onClick={checkout}
+                className="w-full mt-6 bg-primary text-primary-foreground py-3 rounded-lg font-body font-semibold text-sm"
+              >
                 Checkout
               </button>
             </div>
