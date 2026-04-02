@@ -13,6 +13,15 @@ const ProductDetail = () => {
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState("");
 
+  const sizeAttr = product?.attributes?.find((a) => a.name.toLowerCase() === "size");
+  const sizes = sizeAttr?.options || [];
+
+  useEffect(() => {
+    if (sizes.length > 0 && !selectedSize) {
+      setSelectedSize(sizes.includes("M") ? "M" : sizes[0]);
+    }
+  }, [product?.id]);
+
   const { data: allProducts } = useProducts(product?.category);
   const related = allProducts?.filter((p) => p.id !== product?.id).slice(0, 4) || [];
 
