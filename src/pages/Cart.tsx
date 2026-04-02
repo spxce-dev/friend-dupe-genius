@@ -56,7 +56,7 @@ const Cart = () => {
                     </Link>
                     <p className="font-body text-xs text-muted-foreground">Size: {item.size}</p>
                     <p className="font-body text-sm text-primary font-semibold mt-1">
-                      ${item.product?.price}
+                      R{item.product?.price}
                     </p>
                   </div>
                   <div className="flex flex-col items-end justify-between">
