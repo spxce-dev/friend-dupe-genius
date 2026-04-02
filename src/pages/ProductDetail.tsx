@@ -11,7 +11,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const { data: product, isLoading } = useProduct(id || "");
   const { addToCart } = useCart();
-  const [selectedSize, setSelectedSize] = useState("M");
+  const [selectedSize, setSelectedSize] = useState("");
 
   const { data: allProducts } = useProducts(product?.category);
   const related = allProducts?.filter((p) => p.id !== product?.id).slice(0, 4) || [];
