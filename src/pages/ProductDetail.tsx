@@ -12,6 +12,7 @@ const ProductDetail = () => {
   const { data: product, isLoading } = useProduct(id || "");
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
   const sizeAttr = product?.attributes?.find((a) => a.name.toLowerCase() === "size");
   const sizes = sizeAttr?.options || [];
@@ -107,10 +108,29 @@ const ProductDetail = () => {
             </div>
             )}
 
+            <div className="mb-6">
+              <p className="font-body text-sm text-foreground mb-2">Quantity</p>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  className="w-10 h-10 rounded bg-secondary text-secondary-foreground font-body text-lg hover:bg-primary/10 transition-colors"
+                >
+                  −
+                </button>
+                <span className="font-body text-foreground w-8 text-center">{quantity}</span>
+                <button
+                  onClick={() => setQuantity((q) => q + 1)}
+                  className="w-10 h-10 rounded bg-secondary text-secondary-foreground font-body text-lg hover:bg-primary/10 transition-colors"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => addToCart(product, selectedSize || "One Size")}
+              onClick={() => addToCart(product, selectedSize || "One Size", quantity)}
               className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground py-3 rounded-lg font-body font-semibold text-sm tracking-wide"
             >
               <ShoppingBag className="w-4 h-4" />
