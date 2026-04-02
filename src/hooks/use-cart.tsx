@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, useRef, ReactNode } from "react";
 import type { Product } from "@/hooks/use-products";
 import { siteConfig } from "@/lib/config";
 import { toast } from "sonner";
