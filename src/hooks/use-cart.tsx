@@ -47,6 +47,7 @@ const syncToWoo = async (cartItems: CartItem[]) => {
       quantity: i.quantity,
       attributes: i.size && i.size !== "One Size" ? { pa_size: i.size } : {},
     }));
+    console.log("[Cart Sync] Sending payload:", JSON.stringify(payload));
     const res = await fetch(siteConfig.cartSyncUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
