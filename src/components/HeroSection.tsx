@@ -8,8 +8,8 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <img
           src={heroBanner}
-          alt="Luxury jewelry and accessories"
-          className="w-full h-full object-cover"
+          alt="Frienemies streetwear collection"
+          className="w-full h-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-hero/60" />
       </div>

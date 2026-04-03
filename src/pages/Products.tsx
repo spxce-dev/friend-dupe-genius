@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
@@ -10,6 +10,12 @@ const Products = () => {
   const [searchParams] = useSearchParams();
   const initialCategory = searchParams.get("category") || "All";
   const [activeCategory, setActiveCategory] = useState(initialCategory);
+
+  // Sync URL param changes
+  useEffect(() => {
+    const cat = searchParams.get("category") || "All";
+    setActiveCategory(cat);
+  }, [searchParams]);
 
   const { data: categories } = useCategories();
   const { data: products, isLoading } = useProducts(activeCategory);
@@ -48,15 +54,19 @@ const Products = () => {
               </div>
             ))}
           </div>
-        ) : (
+        ) : products && products.length > 0 ? (
           <motion.div
             layout
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
           >
-            {products?.map((product) => (
+            {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </motion.div>
+        ) : (
+          <div className="text-center py-16">
+            <p className="font-body text-muted-foreground">No products found in this category.</p>
+          </div>
         )}
       </div>
       <Footer />

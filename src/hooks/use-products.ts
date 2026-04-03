@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { siteConfig } from "@/lib/config";
 
+export interface ProductAttribute {
+  name: string;
+  options: string[];
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -13,7 +18,7 @@ export interface Product {
   best_seller: boolean;
   in_stock: boolean;
   category: string;
-  attributes: { name: string; options: string[] }[];
+  attributes: ProductAttribute[];
   permalink: string;
   variation_id?: number;
 }
@@ -62,6 +67,7 @@ export const useProducts = (category?: string) => {
       if (!category || category === "All") return all;
       return all.filter((p) => p.categories.includes(category));
     },
+    staleTime: 5 * 60 * 1000,
   });
 };
 
@@ -75,6 +81,7 @@ export const useProduct = (id: string) => {
       return product;
     },
     enabled: !!id,
+    staleTime: 5 * 60 * 1000,
   });
 };
 
@@ -83,10 +90,10 @@ export const useBestSellers = () => {
     queryKey: ["products", "best-sellers"],
     queryFn: async () => {
       const all = await fetchProducts();
-      // Return featured products, or first 4 if none featured
       const featured = all.filter((p) => p.featured);
       return featured.length > 0 ? featured : all.slice(0, 4);
     },
+    staleTime: 5 * 60 * 1000,
   });
 };
 
@@ -103,5 +110,6 @@ export const useCategories = () => {
         ...cats.map((name, i) => ({ name, image: "", sort_order: i + 1 })),
       ];
     },
+    staleTime: 5 * 60 * 1000,
   });
 };
