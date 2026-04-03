@@ -12,14 +12,21 @@ const ProductDetail = () => {
   const { data: product, isLoading } = useProduct(id || "");
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColour, setSelectedColour] = useState("");
   const [quantity, setQuantity] = useState(1);
 
   const sizeAttr = product?.attributes?.find((a) => a.name.toLowerCase() === "size");
   const sizes = sizeAttr?.options || [];
 
+  const colourAttr = product?.attributes?.find((a) => a.name.toLowerCase() === "colour");
+  const colours = colourAttr?.options || [];
+
   useEffect(() => {
     if (sizes.length > 0 && !selectedSize) {
       setSelectedSize(sizes.includes("M") ? "M" : sizes[0]);
+    }
+    if (colours.length > 0 && !selectedColour) {
+      setSelectedColour(colours[0]);
     }
   }, [product?.id]);
 
@@ -31,7 +38,10 @@ const ProductDetail = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <div className="flex items-center justify-center h-[60vh]">
-          <p className="font-body text-muted-foreground">Loading...</p>
+          <div className="animate-pulse flex flex-col items-center gap-2">
+            <div className="w-10 h-10 rounded-full bg-muted" />
+            <p className="font-body text-muted-foreground">Loading...</p>
+          </div>
         </div>
       </div>
     );
@@ -47,7 +57,6 @@ const ProductDetail = () => {
       </div>
     );
   }
-
 
   return (
     <div className="min-h-screen bg-background">
@@ -87,25 +96,48 @@ const ProductDetail = () => {
               R{product.price}
             </p>
 
-            {sizes.length > 0 && (
-            <div className="mb-6">
-              <p className="font-body text-sm text-foreground mb-2">Size</p>
-              <div className="flex gap-2">
-                {sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`w-10 h-10 rounded font-body text-sm transition-colors ${
-                      selectedSize === size
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-secondary-foreground hover:bg-primary/10"
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
+            {colours.length > 0 && (
+              <div className="mb-6">
+                <p className="font-body text-sm text-foreground mb-2">
+                  Colour: <span className="font-semibold">{selectedColour}</span>
+                </p>
+                <div className="flex gap-2 flex-wrap">
+                  {colours.map((colour) => (
+                    <button
+                      key={colour}
+                      onClick={() => setSelectedColour(colour)}
+                      className={`px-4 py-2 rounded font-body text-sm transition-colors ${
+                        selectedColour === colour
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-secondary text-secondary-foreground hover:bg-primary/10"
+                      }`}
+                    >
+                      {colour}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
+
+            {sizes.length > 0 && (
+              <div className="mb-6">
+                <p className="font-body text-sm text-foreground mb-2">Size</p>
+                <div className="flex gap-2">
+                  {sizes.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`w-10 h-10 rounded font-body text-sm transition-colors ${
+                        selectedSize === size
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-secondary text-secondary-foreground hover:bg-primary/10"
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
 
             <div className="mb-6">
